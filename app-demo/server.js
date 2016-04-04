@@ -1,18 +1,19 @@
-#!/usr/bin/env node
+
 
 /**
  * Module dependencies.
  */
 
-var app = require('../app');
-var debug = require('debug')('app-demo:server');
-var http = require('http');
+var app    = require('./app');
+var debug  = require('debug')('app-demo:server');
+var http   = require('http');
+var colors = require('colors');
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '3030');
 app.set('port', port);
 
 /**
@@ -65,11 +66,11 @@ function onError(error) {
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
+      console.error(colors.red(bind + ' requires elevated privileges'));
       process.exit(1);
       break;
     case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
+      console.error(colors.red(bind + ' is already in use'));
       process.exit(1);
       break;
     default:
@@ -86,5 +87,6 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  debug(colors.rainbow('Listening on ' + bind));
+  console.info(colors.green('Listening on port ' + bind));
 }
